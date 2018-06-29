@@ -1,0 +1,9 @@
+- hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - include: docker.yml
+    - include: vagrant.yml
+
+    - name: swarm join
+      shell: docker swarm join --token $(cat /vagrant/worker_token) 10.0.3.2:2377
